@@ -1,0 +1,32 @@
+/* Mantengo stile base + nuovi toni azzurro/petrolio // NUOVO */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Navbar brand più leggibile */
+.navbar-brand {
+    font-size: 1.2rem;
+    letter-spacing: 0.5px;
+}
+
+/* Tabelle più eleganti */
+.table thead {
+    background-color: #007bff !important;
+    color: white;
+}
+
+/* Pulsanti arrotondati e con ombra leggera */
+.btn {
+    border-radius: 8px !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Container delle card */
+.card {
+    border-radius: 15px;
+}
+
+/* Migliora spazio generale */
+.container {
+    max-width: 1000px;
+}
