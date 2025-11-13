@@ -31,7 +31,6 @@ $ordini_result = mysqli_query($conn, "SELECT * FROM ordini WHERE contatto_id = $
 
     <!-- BOOTSTRAP 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
     <!-- CSS personalizzato -->
     <link rel="stylesheet" href="style.css?v=<?= time() ?>">
 </head>
@@ -51,9 +50,7 @@ $ordini_result = mysqli_query($conn, "SELECT * FROM ordini WHERE contatto_id = $
         <div class="card shadow-lg border-0 rounded-4">
             <div class="card-body p-4">
                 
-                <h1 class="mb-4 text-info">
-                    Ordini di <?= htmlspecialchars($contatto['nome']) ?>
-                </h1>
+                <h1 class="mb-4 text-info">Ordini di <?= htmlspecialchars($contatto['nome']) ?></h1>
 
                 <!-- LINK A PAGINA DI AGGIUNTA ORDINE // NUOVO -->
                 <a href="aggiungi_ordine.php?contatto_id=<?= $contatto_id ?>" class="btn btn-success mb-4">➕ Aggiungi nuovo ordine</a>
@@ -66,6 +63,7 @@ $ordini_result = mysqli_query($conn, "SELECT * FROM ordini WHERE contatto_id = $
                                 <th>Prodotto</th>
                                 <th>Quantità</th>
                                 <th>Data ordine</th>
+                                <th>Azioni</th> <!-- NUOVO -->
                             </tr>
                         </thead>
                         <tbody>
@@ -75,13 +73,38 @@ $ordini_result = mysqli_query($conn, "SELECT * FROM ordini WHERE contatto_id = $
                                         <td><?= htmlspecialchars($ordine['prodotto']) ?></td>
                                         <td><?= htmlspecialchars($ordine['quantita']) ?></td>
                                         <td><?= htmlspecialchars($ordine['data_di_ordine']) ?></td>
+                                        <td>
+                                            <!-- NUOVO: link a modifica ed elimina -->
+                                            <a href="modifica_ordine.php?id=<?= $ordine['id'] ?>" class="btn btn-warning btn-sm me-1">🖊️</a>
+                                            <!-- Button trigger modale eliminazione // NUOVO -->
+                                            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#eliminaModal<?= $ordine['id'] ?>">
+                                                🗑️
+                                            </button>
+
+                                            <!-- Modal // NUOVO -->
+                                            <div class="modal fade" id="eliminaModal<?= $ordine['id'] ?>" tabindex="-1" aria-labelledby="eliminaModalLabel<?= $ordine['id'] ?>" aria-hidden="true">
+                                              <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                  <div class="modal-header">
+                                                    <h5 class="modal-title" id="eliminaModalLabel<?= $ordine['id'] ?>">Conferma eliminazione</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                  </div>
+                                                  <div class="modal-body">
+                                                    Sei sicuro di voler eliminare l’ordine per <strong><?= htmlspecialchars($ordine['prodotto']) ?></strong> (Quantità: <?= htmlspecialchars($ordine['quantita']) ?>)?
+                                                  </div>
+                                                  <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
+                                                    <a href="elimina_ordine.php?id=<?= $ordine['id'] ?>" class="btn btn-danger">Elimina</a> <!-- NUOVO -->
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                        </td>
                                     </tr>
                                 <?php endwhile; ?>
                             <?php else: ?>
                                 <tr>
-                                    <td colspan="3" class="text-center text-muted">
-                                        Nessun ordine trovato per questo contatto.
-                                    </td>
+                                    <td colspan="4" class="text-center text-muted">Nessun ordine trovato per questo contatto.</td>
                                 </tr>
                             <?php endif; ?>
                         </tbody>
@@ -94,6 +117,5 @@ $ordini_result = mysqli_query($conn, "SELECT * FROM ordini WHERE contatto_id = $
 
     <!-- BOOTSTRAP JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
 </html>

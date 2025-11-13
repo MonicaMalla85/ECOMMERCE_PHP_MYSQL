@@ -44,7 +44,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <!-- BOOTSTRAP 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
     <!-- CSS personalizzato -->
     <link rel="stylesheet" href="style.css?v=<?= time() ?>">
 </head>
@@ -61,7 +60,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="container my-5 p-4 bg-white rounded-4 shadow-lg">
         <h1 class="mb-4 text-success">Aggiungi ordine per <?= htmlspecialchars($contatto['nome']) ?></h1>
 
-        <!-- Form migliorato con Bootstrap -->
         <form action="" method="POST" class="row g-3">
             <div class="col-md-4">
                 <label class="form-label fw-semibold">Prodotto</label>
